@@ -1,6 +1,6 @@
-import userModel from '../models/user.model.server';
+var userModel = require('../models/user/user.model.server');
 
-export default function (app) {
+module.exports = function (app) {
   app.post('/api/login', login);
   app.post('/api/register', register);
   app.post('/api/logout', logout);
@@ -64,7 +64,7 @@ function login(req, res) {
       req.session['currentUser'] = user;
       res.send(user);
     } else {
-      res.send(0);
+      res.send(422);
     }
   });
 }
