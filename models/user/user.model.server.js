@@ -13,6 +13,11 @@ function findUserByCredentials(username, password) {
     username: username, password: password
   });
  }
+
+function findAllUsers() {
+  return userModel.find();
+}
+
 function createUser(user) { 
   return userModel.create(user);
 }
@@ -29,6 +34,7 @@ module.exports = {
   findUserByCredentials: findUserByCredentials,
   createUser: createUser,
   deleteUser: deleteUser,
-  updateUser: updateUser
+  updateUser: updateUser,
+  findAllUsers: findAllUsers
  };
  
