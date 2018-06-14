@@ -29,6 +29,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.get('/', function (req, res) {
+  res.send('Hello World')
+})
+
 userService(app);
 
 app.listen(4000);
