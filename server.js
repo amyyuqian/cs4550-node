@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var userService = require('./services/user.service.server');
 
-mongoose.connect('mongodb://localhost/cs4550-node');
+mongoose.connect('mongodb://heroku_sz86kh8d:3pl68eheog1ip31547bam8fa3q@ds259210.mlab.com:59210/heroku_sz86kh8d');
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin",
