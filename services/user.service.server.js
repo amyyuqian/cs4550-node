@@ -27,7 +27,7 @@ function deleteUser(req, res) {
 
 function updateUser(req, res) {
   var id = req.params['userId'];
-  userMode.updateUser(id, req.body).then(function (user) {
+  userModel.updateUser(id, req.body).then(function (user) {
     res.json(user);
   })
 }
