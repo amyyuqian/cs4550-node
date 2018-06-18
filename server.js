@@ -5,6 +5,8 @@ var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const PORT = process.env.PORT || 4000;
 var userService = require("./services/user.service.server");
+var sectionService = require("./services/section.service.server");
+var enrollmentService = require("./services/enrollment.service.server");
 var idleTimeoutSeconds = 1800;
 
 mongoose.connect(
@@ -46,5 +48,7 @@ app.get("/", function(req, res) {
 });
 
 userService(app);
+sectionService(app);
+enrollmentService(app);
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

@@ -30,10 +30,9 @@ function findUserByUsername(req, res) {
 function findUserByCredentials(req, res) {
   var username = req.body.username;
   var password = req.body.password;
-  userModel.findUserByCredentials(username, password)
-    .then(function(user) {
-      res.json(user);
-    })
+  userModel.findUserByCredentials(username, password).then(function(user) {
+    res.json(user);
+  })
 }
 
 function deleteUser(req, res) {
