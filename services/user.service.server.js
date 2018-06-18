@@ -10,6 +10,7 @@ module.exports = function (app) {
   app.delete('/api/user/:userId', deleteUser);
   app.put('/api/user/:userId', updateUser);
   app.post('/api/user/username', findUserByUsername);
+  app.post('/api/user/credentials', findUserByCredentials)
 }
 
 function findUserById(req, res) {
@@ -24,6 +25,15 @@ function findUserByUsername(req, res) {
   userModel.findUserByUsername(username).then(function (user) {
     res.json(user);
   })
+}
+
+function findUserByCredentials(req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+  userModel.findUserByCredentials(username, password)
+    .then(function(user) {
+      res.json(user);
+    })
 }
 
 function deleteUser(req, res) {
@@ -72,7 +82,7 @@ function login(req, res) {
       req.session['currentUser'] = user;
       res.send(user);
     } else {
-      res.send(422);
+      res.sendStatus(422);
     }
   });
 }
