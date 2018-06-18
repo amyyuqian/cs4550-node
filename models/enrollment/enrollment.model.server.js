@@ -14,8 +14,13 @@ function deleteEnrollment(id) {
   return enrollmentModel.remove({_id: id});
 }
 
+function getEnrollmentsBySection(sid) {
+  return enrollmentModel.find({sectionId: sid})
+}
+
 module.exports = {
   createEnrollment: createEnrollment,
   getEnrollments: getEnrollments,
-  deleteEnrollment: deleteEnrollment
+  deleteEnrollment: deleteEnrollment,
+  getEnrollmentsBySection: getEnrollmentsBySection
 }

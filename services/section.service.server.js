@@ -1,4 +1,5 @@
 var sectionModel = require('../models/section/section.model.server');
+var enrollmentModel = require('../models/enrollment/enrollment.model.server');
 
 module.exports = function (app) {
   app.post('/api/course/:courseId/section', createSection),
@@ -39,7 +40,12 @@ function updateSection(req, res) {
 
 function deleteSection(req, res) {
   var sid = req.params['sectionId'];
+  var enrollments = enrollmentModel.getEnrollmentsBySection(sid);
+  
   sectionModel.deleteSection(sid).then(function(section) {
+    enrollments.map((enrollment) => {
+      enrollmentModel.deleteEnrollment(enrollment._id)
+    })
     res.send(section);
   })
 }
