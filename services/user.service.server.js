@@ -7,13 +7,21 @@ module.exports = function (app) {
   app.get('/api/profile', profile);
   app.get('/api/user', findAllUsers);
   app.get('/api/user/:userId', findUserById);
-  app.delete('/api/user/:userId', deleteUser)
-  app.put('/api/user/:userId', updateUser)
+  app.delete('/api/user/:userId', deleteUser);
+  app.put('/api/user/:userId', updateUser);
+  app.post('/api/user/username', findUserByUsername);
 }
 
 function findUserById(req, res) {
   var id = req.params['userId'];
   userModel.findUserById(id).then(function (user) {
+    res.json(user);
+  })
+}
+
+function findUserByUsername(req, res) {
+  var username = req.body.username;
+  userModel.findUserByUsername(username).then(function (user) {
     res.json(user);
   })
 }
