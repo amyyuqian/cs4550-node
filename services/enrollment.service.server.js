@@ -4,16 +4,12 @@ var sectionModel = require('../models/section/section.model.server')
 module.exports = function (app) {
   app.post('/api/student/:sid/section/:kid', enroll),
   app.get('/api/student/:sid/section', getAllSectionsForStudent),
-  app.delete('/api/student/:sid/section/:kid/enrollment/:eid', unenroll)
+  app.delete('/api/section/:sid/enrollment/:eid', unenroll)
 }
 
 function enroll(req, res) {
-  var studentId = req.params['sid'];
   var sectionId = req.params['kid'];
-  var body = {
-    studentId: studentId,
-    sectionId: sectionId,
-  }
+  var body = req.body;
   var section = sectionModel.findSectionById(sectionId);
   var newSeats = section.seats + 1;
   var updateSection = {
@@ -35,7 +31,7 @@ function getAllSectionsForStudent(req, res) {
 
 function unenroll(req, res) {
   var eid = req.params['eid'];
-  var sid = req.params['kid'];
+  var sid = req.params['sid'];
   var section = sectionModel.findSectionById(sid);
   var newSeats = section.seats - 1;
   var updateSection = {
