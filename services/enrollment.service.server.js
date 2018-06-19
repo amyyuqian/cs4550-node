@@ -2,14 +2,19 @@ var enrollmentModel = require('../models/enrollment/enrollment.model.server');
 var sectionModel = require('../models/section/section.model.server')
 
 module.exports = function (app) {
-  app.post('/api/student/:sid/section/:kid', enroll),
-  app.get('/api/student/:sid/section', getAllSectionsForStudent),
+  app.post('/api/section/:sid/enrollment', enroll),
+  app.get('/api/student/section', getAllSectionsForStudent),
   app.delete('/api/section/:sid/enrollment/:eid', unenroll)
 }
 
 function enroll(req, res) {
-  var sectionId = req.params['kid'];
-  var body = req.body;
+  var currentUser = req.session.currentUser;
+  var sectionId = req.params['sid'];
+
+  var body = {
+    sectionId: sectionId,
+    studentId: currentUser._id,
+  }
   var section = sectionModel.findSectionById(sectionId);
   var newSeats = section.seats + 1;
   var updateSection = {
@@ -23,7 +28,8 @@ function enroll(req, res) {
 }
 
 function getAllSectionsForStudent(req, res) {
-  var studentId = req.params['sid'];
+  var currentUser = req.session.currentUser;
+  var studentId = currentUser._id;
   enrollmentModel.getEnrollments(studentId).then(function(enrollments) {
     res.send(enrollments);
   })
