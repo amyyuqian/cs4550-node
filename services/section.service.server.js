@@ -41,11 +41,11 @@ function updateSection(req, res) {
 function deleteSection(req, res) {
   var sid = req.params['sectionId'];
   var enrollments = enrollmentModel.getEnrollmentsBySection(sid);
-  
+  console.log(enrollments);
   sectionModel.deleteSection(sid).then(function(section) {
-    enrollments.map((enrollment) => {
-      enrollmentModel.deleteEnrollment(enrollment._id)
-    })
+    //enrollments.forEach(enrollment => {
+    //  enrollmentModel.deleteEnrollment(enrollment._id)
+    //});
     res.send(section);
   })
 }
