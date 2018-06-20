@@ -11,7 +11,7 @@ function findAllSections() {
 }
 
 function findSectionsForCourse(courseId) {
-  return sectionModel({_id: courseId});
+  return sectionModel.find({courseId: courseId});
 }
 
 function findSectionById(id) {
